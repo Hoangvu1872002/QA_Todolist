@@ -1,0 +1,39 @@
+.header {
+  position: fixed;
+  top: 20px;
+  left: 45px;
+  right: 45px;
+  width: calc(100% - 90px);
+  z-index: 1000;
+  transition: transform 0.3s;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    .logo {
+      width: 47px;
+      height: 41px;
+      object-fit: contain;
+    }
+    .nav {
+      display: flex;
+      align-items: flex-start;
+      .link {
+        color: #23405a;
+        text-decoration: underline;
+        font-size: 1rem;
+        margin-left: 24px;
+        transition: color 0.2s;
+      }
+
+      .link:hover {
+        color: #377293;
+      }
+    }
+  }
+}
+
+.hide {
+  transform: translateY(-160%);
+}

@@ -1,0 +1,151 @@
+@use "@/styles/responsive.scss" as *;
+
+.typography {
+  &.headline {
+    line-height: 125%;
+    font-family: var(--nexa);
+    font-weight: bold;
+
+    &.headline_1 {
+      font-size: 2rem;
+
+      @include screen(lg) {
+        font-size: 3.5rem; // 56px
+      }
+    }
+
+    &.headline_2 {
+      font-size: 2rem;
+
+      @include screen(lg) {
+        font-size: 3rem; // 48px
+      }
+    }
+
+    &.headline_3 {
+      font-size: 1.75rem;
+
+      @include screen(lg) {
+        font-size: 2rem; // 32px
+      }
+    }
+
+    &.headline_4 {
+      font-size: 1.5rem;
+
+      @include screen(lg) {
+        font-size: 1.75rem; // 28px
+      }
+    }
+  }
+
+  &.title {
+    font-weight: bold;
+    font-family: var(--nexa);
+
+    &.title_1 {
+      line-height: 125%;
+      font-size: 1.125rem;
+
+      @include screen(lg) {
+        font-size: 1.5rem; // 24px
+      }
+    }
+    &.title_2 {
+      font-size: 1rem;
+      line-height: 125%;
+
+      @include screen(lg) {
+        font-size: 1.25rem; // 20px
+      }
+    }
+    &.title_3 {
+      font-size: 1rem;
+      line-height: 125%;
+
+      @include screen(lg) {
+        font-size: 1.125rem; // 18px
+      }
+    }
+    &.title_4 {
+      font-size: 0.875rem;
+      line-height: 150%;
+
+      @include screen(lg) {
+        font-size: 1rem; // 16px
+      }
+    }
+    &.title_5 {
+      font-size: 0.875rem; // 14px
+      line-height: 150%;
+    }
+  }
+
+  &.label {
+    font-weight: 500;
+
+    &.label_1 {
+      font-size: 1rem;
+      line-height: 125%;
+
+      @include screen(lg) {
+        font-size: 1.5rem; // 24px
+      }
+    }
+    &.label_2 {
+      font-size: 0.875rem;
+      line-height: 125%;
+
+      @include screen(lg) {
+        font-size: 1.25rem; // 20px
+      }
+    }
+    &.label_3 {
+      font-size: 0.875rem;
+      line-height: 150%;
+
+      @include screen(lg) {
+        font-size: 1rem; // 16px
+      }
+    }
+    &.label_4 {
+      font-size: 0.75rem;
+      line-height: 150%;
+
+      @include screen(lg) {
+        font-size: 0.875rem; // 14px
+      }
+    }
+    &.label_5 {
+      font-size: 0.75rem; // 12px
+      line-height: 150%;
+    }
+  }
+
+  &.body {
+    &.body_1 {
+      font-size: 1rem;
+      line-height: 125%;
+
+      @include screen(lg) {
+        font-size: 1.25rem; // 20px
+      }
+    }
+    &.body_2 {
+      font-size: 1rem; // 16px
+      line-height: 150%;
+    }
+    &.body_3 {
+      font-size: 0.875rem;
+      line-height: 150%;
+
+      @include screen(lg) {
+        font-size: 0.875rem; // 14px
+      }
+    }
+    &.body_4 {
+      font-size: 0.75rem; // 12px
+      line-height: 150%;
+    }
+  }
+}

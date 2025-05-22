@@ -1,0 +1,49 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  background: #fff;
+  padding: 32px 0;
+  border-top: 4px solid #eaeaea;
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    .copyright {
+      color: #555;
+      font-size: 0.95rem;
+      margin-top: 12px;
+    }
+  }
+  .right {
+    min-width: 340px;
+    .contactTitle {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    .contactList {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      .boxContact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        .contactItem {
+          display: flex;
+          align-items: center;
+          color: #222;
+          font-size: 1rem;
+          gap: 0.8rem;
+          .icon {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+}

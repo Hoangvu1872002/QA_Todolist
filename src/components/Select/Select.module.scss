@@ -1,0 +1,44 @@
+.selectGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  .label {
+    color: #222;
+    margin-bottom: 2px;
+    font-size: 1rem;
+    .required {
+      color: #e53935;
+      margin-left: 2px;
+    }
+  }
+  .selectWrapper {
+    position: relative;
+    .select {
+      width: 100%;
+      padding: 10.5px;
+      border: 1.5px solid #bdbdbd;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fff;
+      transition: border 0.2s;
+      color: #9b9b9b;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    .select:focus {
+      outline: none;
+      border-color: #1e272c;
+    }
+  }
+  .arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #222; // hoặc màu bạn muốn
+  }
+}

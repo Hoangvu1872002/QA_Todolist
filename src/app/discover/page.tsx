@@ -40,7 +40,7 @@ export default function Discover() {
   const handleFetchData = async () => {
     try {
       const params = new URLSearchParams({
-        keyword: searchKeyword,
+        keyword: debouncedKeyword,
         page: currentPage.toString(),
         category: selectedCategory !== "All" ? selectedCategory : "All",
       });
@@ -100,15 +100,15 @@ export default function Discover() {
   }, [searchKeyword]);
 
   // Lọc data theo category nếu có chọn và theo từ khóa tìm kiếm
-  const filteredData = (
-    selectedCategory && selectedCategory !== "All"
-      ? data.filter((item) => item.source === selectedCategory)
-      : data
-  ).filter(
-    (item) => item.title.toLowerCase().includes(debouncedKeyword.toLowerCase())
-    //  ||
-    //   item.translated.toLowerCase().includes(debouncedKeyword.toLowerCase())
-  );
+  // const filteredData = (
+  //   selectedCategory && selectedCategory !== "All"
+  //     ? data.filter((item) => item.source === selectedCategory)
+  //     : data
+  // ).filter(
+  //   (item) => item.title.toLowerCase().includes(debouncedKeyword.toLowerCase())
+  //   //  ||
+  //   //   item.translated.toLowerCase().includes(debouncedKeyword.toLowerCase())
+  // );
 
   // Tính toán dữ liệu trang hiện tại
 
@@ -157,7 +157,7 @@ export default function Discover() {
             />
           </div>
         </div>
-        {filteredData.map((item, idx) => {
+        {data.map((item, idx) => {
           const realIdx = startIdx + idx;
           return (
             <div key={realIdx}>

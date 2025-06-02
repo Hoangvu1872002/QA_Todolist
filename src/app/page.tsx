@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 import Typography from "@/components/Typography";
 
 export default function Home() {
-  const { baseUrl, setBaseUrl } = useBaseUrl();
+  // const { baseUrl, setBaseUrl } = useBaseUrl();
+  const [baseUrl, setBaseUrl] = useState("");
   const [err, setErr] = useState("");
 
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function Home() {
       setErr("");
       const res = await axios.get(baseUrl);
       if (res.status === 200) {
+        localStorage.setItem("baseUrl", baseUrl);
         router.push("/discover");
       }
     } catch (error: unknown) {

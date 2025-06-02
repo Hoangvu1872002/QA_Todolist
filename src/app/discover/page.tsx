@@ -14,7 +14,12 @@ import Input from "@/components/Input";
 // Thêm "All" vào đầu catetagories nếu chưa có
 
 export default function Discover() {
-  const { baseUrl } = useBaseUrl();
+  // const { baseUrl } = useBaseUrl();
+  // Lấy baseUrl từ localStorage nếu có, nếu không thì lấy từ useBaseUrl
+  let baseUrl = "";
+  if (typeof window !== "undefined") {
+    baseUrl = localStorage.getItem("baseUrl") || "";
+  }
   const router = useRouter();
 
   const [data, setData] = useState<any[]>([]);
@@ -35,7 +40,7 @@ export default function Discover() {
   const handleFetchData = async () => {
     try {
       const params = new URLSearchParams({
-        // keyword: searchKeyword,
+        keyword: searchKeyword,
         page: currentPage.toString(),
         category: selectedCategory !== "All" ? selectedCategory : "All",
       });

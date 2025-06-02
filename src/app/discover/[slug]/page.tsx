@@ -12,7 +12,11 @@ export default function DiscoverDetail() {
   const router = useRouter();
   const { slug } = useParams();
 
-  const { baseUrl } = useBaseUrl();
+  // const { baseUrl } = useBaseUrl();
+  let baseUrl = "";
+  if (typeof window !== "undefined") {
+    baseUrl = localStorage.getItem("baseUrl") || "";
+  }
 
   // State để lưu dữ liệu chi tiết (giả lập)
   const [detail, setDetail] = useState<any>(null);

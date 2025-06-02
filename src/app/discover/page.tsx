@@ -70,7 +70,7 @@ export default function Discover() {
 
   useEffect(() => {
     handleFetchData();
-  }, [currentPage, selectedCategory]);
+  }, [currentPage, selectedCategory, debouncedKeyword]);
 
   useEffect(() => {
     handleFetchCategories();

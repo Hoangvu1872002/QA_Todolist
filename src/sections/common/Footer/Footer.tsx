@@ -10,8 +10,8 @@ const Footer: React.FC = () => {
     <footer className={styles.footer}>
       <div className={styles.left}>
         <Image
-          src="/images/logo-header.svg"
-          alt="TA86"
+          src="/images/logoBKHN.png"
+          alt="HUST"
           width={117}
           height={172}
         />
@@ -28,14 +28,14 @@ const Footer: React.FC = () => {
                 <FaLocationDot />
               </span>
               <Typography type="body-3">
-                Cơ sở 1: Tầng 3, Showtime D12 Giảng Võ, Quận Ba Đình, Vietnam
+                Hoàng Văn Thụ, Hoàng Mai, Hà Nội
               </Typography>
             </div>
             <div className={styles.contactItem}>
               <span className={styles.icon}>
                 <FaPhoneAlt />
               </span>
-              <Typography type="body-3">0902063898</Typography>
+              <Typography type="body-3">0377341688</Typography>
             </div>
           </div>
           <div className={styles.boxContact}>
@@ -44,14 +44,14 @@ const Footer: React.FC = () => {
                 <FaLocationDot />
               </span>
               <Typography type="body-3">
-                Cơ sở 2: Tầng 3, Showtime D12 Giảng Võ, Quận Ba Đình, Vietnam
+                Đại học Bách Khoa Hà Nội, 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội
               </Typography>
             </div>
             <div className={styles.contactItem}>
               <span className={styles.icon}>
                 <FaPhoneAlt />
               </span>
-              <Typography type="body-3">0902063898</Typography>
+              <Typography type="body-3">0912345678</Typography>
             </div>
           </div>
         </div>

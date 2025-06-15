@@ -9,8 +9,7 @@ import { useRouter } from "next/navigation";
 import Typography from "@/components/Typography";
 
 export default function Home() {
-  // const { baseUrl, setBaseUrl } = useBaseUrl();
-  const [baseUrl, setBaseUrl] = useState("");
+  const { baseUrl, setBaseUrl } = useBaseUrl();
   const [err, setErr] = useState("");
 
   const router = useRouter();
@@ -21,10 +20,10 @@ export default function Home() {
       setErr("");
       const res = await axios.get(baseUrl);
       if (res.status === 200) {
-        localStorage.setItem("baseUrl", baseUrl);
         router.push("/discover");
       }
-    } catch (error: unknown) {
+    } catch (_error: unknown) {
+      console.log("Error:", _error);
       setErr("Nhập sai baseURL, hãy nhập lại!");
     }
   };

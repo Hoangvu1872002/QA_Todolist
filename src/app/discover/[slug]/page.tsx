@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "@/styles/page/DetaileDiscover.module.scss";
 import Typography from "@/components/Typography";
-import mockDetail from "@/constants/detailNews";
+// import mockDetail from "@/constants/detailNews";
 import axios from "axios";
 import { useBaseUrl } from "@/hooks/useBaseUrl";
 
@@ -12,13 +12,11 @@ export default function DiscoverDetail() {
   const router = useRouter();
   const { slug } = useParams();
 
-  // const { baseUrl } = useBaseUrl();
-  let baseUrl = "";
-  if (typeof window !== "undefined") {
-    baseUrl = localStorage.getItem("baseUrl") || "";
-  }
+  const { baseUrl } = useBaseUrl();
 
   // State để lưu dữ liệu chi tiết (giả lập)
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [detail, setDetail] = useState<any>(null);
 
   const handleFetchCategories = async () => {

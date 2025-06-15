@@ -7,22 +7,27 @@ import { useEffect, useState, useRef } from "react";
 import Typography from "@/components/Typography";
 import moment from "moment";
 import Button from "@/components/Button/Button";
-import { catetagories, dataHomePage } from "@/constants/home";
+// import { catetagories, dataHomePage } from "@/constants/home";
 import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
 
 // Thêm "All" vào đầu catetagories nếu chưa có
 
 export default function Discover() {
-  // const { baseUrl } = useBaseUrl();
-  // Lấy baseUrl từ localStorage nếu có, nếu không thì lấy từ useBaseUrl
-  let baseUrl = "";
-  if (typeof window !== "undefined") {
-    baseUrl = localStorage.getItem("baseUrl") || "";
-  }
+  const { baseUrl } = useBaseUrl();
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type VideoItem = {
+  thumbnail_url: string;
+  title_translated: string;
+  published_at: string;
+  summary_translated: string;
+  video_id: string;
+  url: string;
+};
 
-  const [data, setData] = useState<any[]>([]);
+const [data, setData] = useState<VideoItem[]>([]);
+
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [totalItem, setTotalItem] = useState(0);
   const [categories, setCategories] = useState<string[]>([]);
@@ -50,7 +55,8 @@ export default function Discover() {
       });
       setData(res.data.data);
       setTotalItem(res.data.total_count);
-    } catch (error: unknown) {
+    } catch (_error: unknown) {
+      console.log(_error);
       setData([]);
     }
   };
@@ -138,6 +144,12 @@ export default function Discover() {
             placeholder="Tìm kiếm..."
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setDebouncedKeyword(searchKeyword); // Gán luôn keyword để tìm kiếm ngay
+                setCurrentPage(1); // Reset về trang đầu nếu muốn
+              }
+            }}
           />
           <div className={styles.inputYtBox}>
             <Input

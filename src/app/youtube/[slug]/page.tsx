@@ -9,7 +9,15 @@ export default function YoutubeDetailPage() {
   const { slug } = useParams();
   const { baseUrl } = useBaseUrl();
   const router = useRouter();
-  const [detail, setDetail] = useState<any>(null);
+    type DetailItem = {
+  transcribe_text: string;
+  transcribe_translated: string;
+  summary_text: string;
+  summary_translated: string;
+  title: string;
+  title_translated: string;
+};
+const [detail, setDetail] = useState<DetailItem | null>(null);
   const [loading, setLoading] = useState(true);
 
   const handleFetchCategories = async () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./Header.module.scss";
-import Typography from "../../../components/Typography";
+// import Typography from "../../../components/Typography";
 import Link from "next/link";
 
 const Header: React.FC = () => {
@@ -32,8 +32,8 @@ const Header: React.FC = () => {
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
           <Image
-            src="/images/logo-header.svg"
-            alt="Logo TA86"
+            src="/images/logoBKHN.png"
+            alt="HUST"
             width={47}
             height={41}
             className={styles.logoImg}

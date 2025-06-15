@@ -1,16 +1,17 @@
 .header {
   position: fixed;
-  top: 20px;
+  top: 0px;
   left: 45px;
   right: 45px;
   width: calc(100% - 90px);
   z-index: 1000;
+  background: #ffffff00;
   transition: transform 0.3s;
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
+    padding: 40px 20px;
     .logo {
       width: 47px;
       height: 41px;

@@ -10,23 +10,24 @@ import Button from "@/components/Button/Button";
 // import { catetagories, dataHomePage } from "@/constants/home";
 import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
+import { TfiReload } from "react-icons/tfi";
 
 // Thêm "All" vào đầu catetagories nếu chưa có
 
 export default function Discover() {
-  const { baseUrl } = useBaseUrl();
+  const { baseUrl, setBaseUrl } = useBaseUrl();
   const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type VideoItem = {
-  thumbnail_url: string;
-  title_translated: string;
-  published_at: string;
-  summary_translated: string;
-  video_id: string;
-  url: string;
-};
+    thumbnail_url: string;
+    title_translated: string;
+    published_at: string;
+    summary_translated: string;
+    video_id: string;
+    url: string;
+  };
 
-const [data, setData] = useState<VideoItem[]>([]);
+  const [data, setData] = useState<VideoItem[]>([]);
 
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [totalItem, setTotalItem] = useState(0);
@@ -34,7 +35,6 @@ const [data, setData] = useState<VideoItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchKeyYoutube, setSearchKeyYoutube] = useState("");
-  const [debouncedKeyword, setDebouncedKeyword] = useState("");
 
   // Thêm state cho phân trang
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +45,26 @@ const [data, setData] = useState<VideoItem[]>([]);
   const handleFetchData = async () => {
     try {
       const params = new URLSearchParams({
-        keyword: debouncedKeyword,
+        keyword: searchKeyword,
+        page: currentPage.toString(),
+        category: selectedCategory !== "All" ? selectedCategory : "All",
+      });
+
+      const res = await axios.get(`${baseUrl}/articles?${params.toString()}`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
+      });
+      setData(res.data.data);
+      setTotalItem(res.data.total_count);
+    } catch (_error: unknown) {
+      console.log(_error);
+      setData([]);
+    }
+  };
+
+  const handleResetData = async () => {
+    try {
+      const params = new URLSearchParams({
+        keyword: "",
         page: currentPage.toString(),
         category: selectedCategory !== "All" ? selectedCategory : "All",
       });
@@ -75,12 +94,21 @@ const [data, setData] = useState<VideoItem[]>([]);
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const localBaseUrl = localStorage.getItem("baseUrl");
+      if (localBaseUrl) {
+        setBaseUrl(localBaseUrl);
+      }
+    }
+  }, [setBaseUrl]);
+
+  useEffect(() => {
     handleFetchData();
-  }, [currentPage, selectedCategory, debouncedKeyword]);
+  }, [currentPage, selectedCategory, baseUrl]);
 
   useEffect(() => {
     handleFetchCategories();
-  }, []);
+  }, [baseUrl]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -96,28 +124,6 @@ const [data, setData] = useState<VideoItem[]>([]);
     setOpenIdx(null); // Đóng detail khi chọn category mới
   }, [selectedCategory, currentPage]);
 
-  // Debounce searchKeyword -> debouncedKeyword
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedKeyword(searchKeyword);
-    }, 1000); // 400ms sau khi dừng gõ mới tìm kiếm
-
-    return () => clearTimeout(handler);
-  }, [searchKeyword]);
-
-  // Lọc data theo category nếu có chọn và theo từ khóa tìm kiếm
-  // const filteredData = (
-  //   selectedCategory && selectedCategory !== "All"
-  //     ? data.filter((item) => item.source === selectedCategory)
-  //     : data
-  // ).filter(
-  //   (item) => item.title.toLowerCase().includes(debouncedKeyword.toLowerCase())
-  //   //  ||
-  //   //   item.translated.toLowerCase().includes(debouncedKeyword.toLowerCase())
-  // );
-
-  // Tính toán dữ liệu trang hiện tại
-
   const totalPages = Math.ceil(totalItem / pageSize);
   const startIdx = (currentPage - 1) * pageSize; //
 
@@ -129,8 +135,8 @@ const [data, setData] = useState<VideoItem[]>([]);
             key={idx}
             text={category}
             onClick={() => {
-              setSelectedCategory(category);
               setCurrentPage(1); // Reset về trang đầu khi chọn category mới
+              setSelectedCategory(category);
             }}
             className={`${styles.categoryButton} ${
               selectedCategory === category ? styles.active : ""
@@ -140,17 +146,34 @@ const [data, setData] = useState<VideoItem[]>([]);
       </div>
       <div className={styles.listNews}>
         <div className={styles.inputBox}>
-          <Input
-            placeholder="Tìm kiếm..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setDebouncedKeyword(searchKeyword); // Gán luôn keyword để tìm kiếm ngay
-                setCurrentPage(1); // Reset về trang đầu nếu muốn
-              }
-            }}
-          />
+          <div className={styles.inputYtBox}>
+            <Button
+              icon={<TfiReload />}
+              onClick={() => {
+                setCurrentPage(1);
+                setSearchKeyword("");
+                handleResetData();
+              }}
+            />
+            <Input
+              placeholder="Tìm kiếm..."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              // onKeyDown={(e) => {
+              //   if (e.key === "Enter") {
+              //     setDebouncedKeyword(searchKeyword); // Gán luôn keyword để tìm kiếm ngay
+              //     setCurrentPage(1); // Reset về trang đầu nếu muốn
+              //   }
+              // }}
+            />
+            <Button
+              text="Tìm kiếm"
+              onClick={() => {
+                setCurrentPage(1);
+                handleFetchData();
+              }}
+            />
+          </div>
           <div className={styles.inputYtBox}>
             <Input
               placeholder="Nhập key youtube..."

@@ -12,10 +12,10 @@ export default function DiscoverDetail() {
   const router = useRouter();
   const { slug } = useParams();
 
-  const { baseUrl } = useBaseUrl();
+  const { baseUrl, setBaseUrl } = useBaseUrl();
 
   // State để lưu dữ liệu chi tiết (giả lập)
-  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [detail, setDetail] = useState<any>(null);
 
@@ -24,8 +24,6 @@ export default function DiscoverDetail() {
     const params = new URLSearchParams({
       video_id: videoId ?? "",
     });
-
-    console.log(params.toString());
 
     try {
       const res = await axios.get(
@@ -43,13 +41,25 @@ export default function DiscoverDetail() {
 
   useEffect(() => {
     handleFetchCategories();
-  }, [slug]);
+  }, [slug, baseUrl]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const localBaseUrl = localStorage.getItem("baseUrl");
+      if (localBaseUrl) {
+        setBaseUrl(localBaseUrl);
+      }
+    }
+  }, [setBaseUrl]);
 
   return (
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.header}>
-          <button className={styles.backBtn} onClick={() => router.back()}>
+          <button
+            className={styles.backBtn}
+            onClick={() => router.replace("/discover")}
+          >
             &lt;
           </button>
           <Typography type="title-2" className={styles.translatedLabel}>

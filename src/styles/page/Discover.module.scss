@@ -43,11 +43,13 @@
     .inputBox {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       .inputYtBox {
         display: flex;
         justify-content: flex-end;
-        gap: 2rem;
+        gap: 1rem;
+        align-items: center;
       }
     }
     .card {

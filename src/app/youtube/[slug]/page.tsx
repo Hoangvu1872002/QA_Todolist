@@ -7,17 +7,17 @@ import { useBaseUrl } from "@/hooks/useBaseUrl";
 
 export default function YoutubeDetailPage() {
   const { slug } = useParams();
-  const { baseUrl } = useBaseUrl();
+  const { baseUrl, setBaseUrl } = useBaseUrl();
   const router = useRouter();
-    type DetailItem = {
-  transcribe_text: string;
-  transcribe_translated: string;
-  summary_text: string;
-  summary_translated: string;
-  title: string;
-  title_translated: string;
-};
-const [detail, setDetail] = useState<DetailItem | null>(null);
+  type DetailItem = {
+    transcribe_text: string;
+    transcribe_translated: string;
+    summary_text: string;
+    summary_translated: string;
+    title: string;
+    title_translated: string;
+  };
+  const [detail, setDetail] = useState<DetailItem | null>(null);
   const [loading, setLoading] = useState(true);
 
   const handleFetchCategories = async () => {
@@ -45,7 +45,16 @@ const [detail, setDetail] = useState<DetailItem | null>(null);
 
   useEffect(() => {
     handleFetchCategories();
-  }, [slug]);
+  }, [slug, baseUrl]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const localBaseUrl = localStorage.getItem("baseUrl");
+      if (localBaseUrl) {
+        setBaseUrl(localBaseUrl);
+      }
+    }
+  }, [setBaseUrl]);
 
   return (
     <div
@@ -62,7 +71,7 @@ const [detail, setDetail] = useState<DetailItem | null>(null);
     >
       {!loading && (
         <button
-          onClick={() => router.back()}
+          onClick={() => router.replace("/discover")}
           style={{
             alignSelf: "flex-start",
             marginBottom: 24,

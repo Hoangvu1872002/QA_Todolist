@@ -20,7 +20,10 @@ export default function Home() {
       setErr("");
       const res = await axios.get(baseUrl);
       if (res.status === 200) {
-        router.push("/discover");
+        if (res.status === 200) {
+          localStorage.setItem("baseUrl", baseUrl);
+          router.push("/discover");
+        }
       }
     } catch (_error: unknown) {
       console.log("Error:", _error);

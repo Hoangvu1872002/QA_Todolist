@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Button.module.scss";
 
 interface ButtonProps {
-  text: string;
+  text?: string;
   onClick?: () => void;
   icon?: React.ReactNode;
   className?: string;
@@ -38,7 +38,7 @@ const Button: React.FC<ButtonProps> = ({
       {icon && iconPosition === "left" && (
         <span className={styles["custom-btn__icon"]}>{icon}</span>
       )}
-      <span className={styles["custom-btn__text"]}>{text}</span>
+      {text && <span className={styles["custom-btn__text"]}>{text}</span>}
       {icon && iconPosition === "right" && (
         <span className={styles["custom-btn__icon"]}>{icon}</span>
       )}
